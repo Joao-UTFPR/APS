@@ -1,10 +1,11 @@
 import tkinter as tk
-from tela_inicial import TelaInicial
+
+from tela import Tela
 
 
 def main():
     window = tk.Tk()
-    TelaInicial(window).set_tela()
+    Tela(window).set_tela_inicial()
     window.mainloop()
 
 

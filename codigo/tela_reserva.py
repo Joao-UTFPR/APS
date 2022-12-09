@@ -1,7 +1,8 @@
 import tkinter as tk
 from tela import Tela
 from postgres import Postgres
-
+import os
+import sys
 
 class TelaReserva(Tela):
     def set_tela(self):
@@ -16,6 +17,9 @@ class TelaReserva(Tela):
             tk.Button(
                 master=self.frame, text="Checar Reservas", width=50, command=self.checar_reservas
             ),
+            tk.Button(
+                master=self.frame, text="Voltar", width=50, command=self.back_to_start
+            )
         ]
         for widget in widget_list:
             widget.pack()
@@ -44,3 +48,9 @@ class TelaReserva(Tela):
     def back(self):
         self.frame.destroy()
         TelaReserva(self.window).set_tela()
+
+    def back_to_start(self):
+        self.window.destroy()
+        window = tk.Tk()
+        super().__init__(window)
+        super().set_tela_inicial()

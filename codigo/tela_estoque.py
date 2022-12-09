@@ -18,6 +18,9 @@ class TelaEstoque(Tela):
                 width=50,
                 command=self.altera_estoque_tela
             ),
+            tk.Button(
+                master=self.frame, text="Voltar", width=50, command=self.back_to_start
+            )
         ]
         for button in button_list:
             button.pack()
@@ -26,7 +29,7 @@ class TelaEstoque(Tela):
         self.frame.destroy()
         self.frame = tk.Frame(master=self.window, width=100, height=100)
         self.frame.pack()
-        result = Postgres().select("SELECT * FROM estoque")
+        result = Postgres().select("SELECT * FROM Produto_Estoque")
         estoque = ""
         for item, qtd in result:
             estoque += f"{item}: {qtd}\n"
@@ -56,9 +59,15 @@ class TelaEstoque(Tela):
         button.pack()
 
     def alterar(self, produto, estoque):
-        Postgres().alter(f"UPDATE Estoque SET estoque={estoque} WHERE produto='{produto}';")
+        Postgres().alter(f"UPDATE Estoque SET Produto_Estoque={estoque} WHERE produto='{produto}';")
         self.back()
 
     def back(self):
         self.frame.destroy()
         TelaEstoque(self.window).set_tela()
+
+    def back_to_start(self):
+        self.window.destroy()
+        window = tk.Tk()
+        super().__init__(window)
+        super().set_tela_inicial()
